@@ -1,0 +1,11 @@
+.navbar{
+  margin-bottom: 10px;
+}
+#xray{
+  float: left;;
+  margin: 10px;
+}
+#heatmap{
+  float:left;
+  margin: 10px;
+}

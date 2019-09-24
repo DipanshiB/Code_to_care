@@ -3,6 +3,8 @@ var app = express();
 var multer  = require('multer')
 var upload = multer()
 var http = require('http');
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended : true}));
 var port = 3000;
 var hostname = '127.0.0.1';
 var server = http.createServer(function(req, res){
@@ -19,18 +21,17 @@ var storage = multer.diskStorage({
     callback(null, './uploads');
   },
   filename : function(req, file, callback){
-    callback(null, file.fieldname + '-' + Date.now());
+    callback(null, file.fieldname + '-' + Date.now() + '.png');
   }
 });
 
 var upload  = multer({storage : storage}).single('userPhoto');
 
-
 app.get("/", function(req, res){
-  res.sendfile(__dirname + "/index.html");
+  res.sendfile(__dirname + "/views/index.html");
 });
 app.get("/submit", function(req, res){
-  res.sendfile(__dirname + "/form.html");
+  res.render("form.ejs");
 });
 app.post("/submit", function(req, res){
   upload(req,res,function(err) {
